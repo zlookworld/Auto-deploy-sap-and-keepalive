@@ -2,13 +2,13 @@
 
 ## 概述
 
-本项目是自动部署argo隧道或直连节点到SAP Cloud Foundry平台，试用版提供完美的自动保活的方案,并适配企业版部署，企业版无需保活
-- 视频教程：https://www.youtube.com/watch?v=uHvtVaeVCvE
+本项目是自动部署argo隧道或直连节点到SAP Cloud平台，试用版提供完美的自动保活的方案,并适配企业版部署，企业版无需保活
+- 视频教程：https://www.youtube.com/watch?v=MU_ySjg98F8
 - telegram交流反馈群组：https://t.me/eooceu
 
 ### 前置要求
 * GitHub 账户：需要有一个 GitHub 账户来创建仓库和设置工作流
-* SAP Cloud Foundry 账户：需要有 SAP Cloud Foundry 的有效账户,点此注册：https://www.sap.com
+* SAP Cloud 账户：需要有 SAP Cloud 有效账户,点此注册：https://www.sap.com
 
 ## 部署步骤
 
@@ -17,8 +17,8 @@
 2. 在Actions菜单允许 `I understand my workflows, go ahead and enable them` 按钮
 
 3. 在 GitHub 仓库中设置以下 secrets（Settings → Secrets and variables → Actions → New repository secret）：
-- `EMAIL`: Cloud Foundry账户邮箱(必填)
-- `PASSWORD`: Cloud Foundry账户密码(必填)
+- `EMAIL`: SAP(试用版或企业版)登录邮箱(必填)
+- `PASSWORD`: SAP(试用版或企业版)登录密码(必填)
 
 4. **设置Docker容器环境变量(也是在secrets里设置)**
    - 使用固定隧道token部署，请在cloudflare里设置端口为8001
@@ -28,6 +28,7 @@
      - ARGO_AUTH(固定隧道json或token,未设置将使用临时隧道),使用直连镜像时没有此变量
      - SUB_PATH(订阅token,未设置默认是sub)
    - 可选环境变量
+     - ARGO_PORT(自定义argo隧道端口,不设置默认为8001)
      - NEZHA_SERVER(v1形式: nezha.xxx.com:8008  v0形式：nezha.xxx.com)
      - NEZHA_PORT(V1哪吒没有这个)
      - NEZHA_KEY(v1的NZ_CLIENT_SECRET或v0的agent密钥)
@@ -37,7 +38,7 @@
 
 6. **开始部署**
 * 试用版第二区域和企业版创建区域后,请一定要创建一个空间,名称随意,否则无法运行
-* 在GitHub仓库的Actions页面找到"自动部署SAP"工作流
+* 在GitHub仓库的Actions页面找到"自动部署代理到SAP"工作流
 * 点击"Run workflow"按钮
 * 根据需要选择或填写以下参数：
    - type: 选择部署类型(Argo隧道CDN/ws直连/xhttp直连)默认Argo隧道
